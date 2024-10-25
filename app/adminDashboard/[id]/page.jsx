@@ -136,64 +136,63 @@ const PollDetails = () => {
   const totalVotes = poll.options.reduce((total, option) => total + option.votes, 0);
 
   return (
-    <div className="flex px-10 justify-center h-[80vh] gap-10 md:mt-[4vh]  x-sm:mt-[20vh] flex-row sm:mt-[6vh] ">
+    <div className="flex flex-col items-center justify-center h-auto md:h-[80vh] gap-6 md:gap-10 p-4 md:p-0 md:mt-[4vh] x-sm:mt-[6vh] sm:mt-[6vh]">
       <Toaster />
-      <div className="flex flex-row items-center justify-center gap-10 x-sm:flex-col md:flex-row">
-        <div className="flex flex-col gap-10">
-          <h1 className="font-extrabold lg:text-3xl x-sm:text-2xl text-start">Poll Question</h1>
-          <div className="flex items-center justify-center gap-10 x-sm:flex-col md:flex-row">
-            <div className="flex flex-col w-[40rem] bg-white p-6 rounded-md border-2 border-blue-700 x-sm:w-[26rem] sm:w-[32rem]">
-              <h3 className="text-3xl font-extrabold text-center uppercase">{poll.question}</h3>
-              <h1 className="p-4 text-xl font-bold">Make a Choice:</h1>
+      <div className="flex lg:flex-row justify-center items-center gap-6 x-sm:flex-col ">
+        <div className="gap-5 flex flex-col">
+        <h1 className="font-bold text-2xl">Poll Question</h1>
+        <div className="flex flex-col gap-3 w-full md:w-[40rem] bg-white p-6 rounded-md border-2 border-blue-700 x-sm:w-full sm:w-[32rem] ">
+          <h3 className="text-2xl md:text-3xl font-extrabold text-center uppercase">{poll.question}</h3>
+          <h1 className="text-lg md:text-xl font-bold">Make a Choice:</h1>
 
-              {poll.options.map((option) => {
-                const percentage = totalVotes > 0 ? Math.round((option.votes / totalVotes) * 100) : 0;
-
-                return (
-                  <div key={option.id} className="mb-4">
-                    <div className="flex items-center justify-between border-2 rounded-xl">
-                      <button
-                        className={`w-full p-2 uppercase h-[3.5rem] border-2 border-blue-800 border-opacity-45 rounded-[10px] font-bold flex justify-between items-center text-left bg-gray-200 ${userVote === option.id ? 'bg-blue-100' : ''}`}
-                        onClick={() => handleVote(option.id)}
-                        disabled={isVoting || !!userVote}
-                        style={{
-                          width: `${percentage}%`,
-                          background: `linear-gradient(90deg, rgba(52,211,153,1) 0%, rgba(56,189,248,1) 100%)`,
-                          transition: "width 1s ease-in-out",
-                        }}
-                      >
-                        <div className="px-5">{option.text}</div>
-                        <div className="flex px-5">
-                          <p>{percentage}%</p>
-                        </div>
-                      </button>
+          {poll.options.map((option) => {
+            const percentage = totalVotes > 0 ? Math.round((option.votes / totalVotes) * 100) : 0;
+            return (
+              <div key={option.id} className="mb-4">
+                <div className="flex items-center justify-between border-2 rounded-xl">
+                  <button
+                    className={`w-full p-2 uppercase h-[3.5rem] border-2 border-blue-800 border-opacity-45 rounded-[10px] font-bold flex justify-between items-center text-left bg-gray-200 ${userVote === option.id ? 'bg-blue-100' : ''}`}
+                    onClick={() => handleVote(option.id)}
+                    disabled={isVoting || !!userVote}
+                    style={{
+                      width: `${percentage}%`,
+                      background: `linear-gradient(90deg, rgba(52,211,153,1) 0%, rgba(56,189,248,1) 100%)`,
+                      transition: "width 1s ease-in-out",
+                    }}
+                  >
+                    <div className="px-2 ">{option.text}</div>
+                    <div className="flex px-5">
+                      <p>{percentage}%</p>
                     </div>
-                    <p className="text-sm text-right text-gray-600">{option.votes} votes</p>
-                  </div>
-                );
-              })}
-
-              {/* Poll creator options */}
-              {isCreator && (
-                <div className="flex flex-row items-center justify-center gap-4 mt-6">
-                  <button
-                    onClick={handleDeletePoll}
-                    className="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600"
-                  >
-                    Delete Poll
-                  </button>
-                  <button
-                    onClick={handleSharePoll}
-                    className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
-                  >
-                    Share Poll Link
                   </button>
                 </div>
-              )}
+                <p className="text-sm text-right text-gray-600">{option.votes} votes</p>
+              </div>
+            );
+          })}
+
+          {/* Poll creator options */}
+          {isCreator && (
+            <div className="flex flex-row items-center justify-center gap-4 mt-6">
+              <button
+                onClick={handleDeletePoll}
+                className="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600 x-sm:text-[14px] text-[1rem]"
+              >
+                Delete Poll
+              </button>
+              <button
+                onClick={handleSharePoll}
+                className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600 x-sm:text-[14px] text-[2rem]"
+              >
+                Share Poll Link
+              </button>
             </div>
+          )}
           </div>
         </div>
-        <div>
+
+        {/* Comment section */}
+        <div className="w-full x-sm:pb-[20vh] lg:pb-[2vh]">
           <CommentSection pollId={id} comments={poll.comments} />
         </div>
       </div>

@@ -1,4 +1,4 @@
- "use client";
+"use client";
 import { useEffect, useState } from "react";
 import { doc, updateDoc, getDoc, onSnapshot } from "firebase/firestore";
 import { auth, db } from "../../Firebase/firebase-config";
@@ -14,17 +14,17 @@ const CommentSection = ({ pollId }) => {
   const [replyingToCommentId, setReplyingToCommentId] = useState(null);
   const [replyText, setReplyText] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 1000); 
-  
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 1000);
+
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 1000);
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
-  // Fetch user information based on user IDs in comments
+
   const fetchUserData = async (userIds) => {
     const userPromises = userIds.map(async (id) => {
       const userDoc = await getDoc(doc(db, "users", id));
@@ -39,13 +39,16 @@ const CommentSection = ({ pollId }) => {
   };
 
   useEffect(() => {
-    const pollRef = doc(db, 'polls', pollId);
+    const pollRef = doc(db, "polls", pollId);
 
     const unsubscribe = onSnapshot(pollRef, (doc) => {
       const data = doc.data();
       if (data && data.comments) {
         setNestedComments(data.comments);
-        const userIds = data.comments.flatMap(comment => [comment.userId, ...comment.replies.map(reply => reply.userId)]);
+        const userIds = data.comments.flatMap(comment => [
+          comment.userId,
+          ...comment.replies.map(reply => reply.userId)
+        ]);
         fetchUserData(userIds);
       }
     });
@@ -71,7 +74,7 @@ const CommentSection = ({ pollId }) => {
     };
 
     try {
-      const pollRef = doc(db, 'polls', pollId);
+      const pollRef = doc(db, "polls", pollId);
 
       await updateDoc(pollRef, {
         comments: [...nestedComments, commentData],
@@ -103,9 +106,9 @@ const CommentSection = ({ pollId }) => {
     };
 
     try {
-      const pollRef = doc(db, 'polls', pollId);
+      const pollRef = doc(db, "polls", pollId);
 
-      const updatedComments = nestedComments.map(comment => {
+      const updatedComments = nestedComments.map((comment) => {
         if (comment.id === commentId) {
           return {
             ...comment,
@@ -134,7 +137,7 @@ const CommentSection = ({ pollId }) => {
     }
 
     try {
-      const pollRef = doc(db, 'polls', pollId);
+      const pollRef = doc(db, "polls", pollId);
 
       let updatedComments;
 
@@ -143,13 +146,13 @@ const CommentSection = ({ pollId }) => {
           if (comment.id === parentCommentId) {
             return {
               ...comment,
-              replies: comment.replies.filter(reply => reply.id !== commentId),
+              replies: comment.replies.filter((reply) => reply.id !== commentId),
             };
           }
           return comment;
         });
       } else {
-        updatedComments = nestedComments.filter(comment => comment.id !== commentId);
+        updatedComments = nestedComments.filter((comment) => comment.id !== commentId);
       }
 
       await updateDoc(pollRef, { comments: updatedComments });
@@ -161,8 +164,7 @@ const CommentSection = ({ pollId }) => {
   };
 
   return (
-    
-    <div className="flex flex-col mt-8 bg-white w-full sm:w-[30rem] p-4 rounded-md x-sm:w-[26rem] sm:w-[32rem] lg:h-[35rem] shadow-lg">
+    <div className="flex flex-col mt-8 bg-white w-full sm:w-[30rem] p-4 rounded-md x-sm:w-[20.6rem] lg:h-[35rem] shadow-lg ">
       <h3 className="mb-4 text-lg font-bold">Comments:</h3>
 
       <div className="overflow-y-auto max-h-64 lg:max-h-[30rem]">
@@ -180,6 +182,8 @@ const CommentSection = ({ pollId }) => {
                   src={user.image || "/default-avatar.png"}
                   alt="User Avatar"
                   className="w-8 h-8 mr-2 rounded-full"
+                  width={32}
+                  height={32}
                 />
                 <div className="flex-1">
                   <p className="font-bold">{user.name || "Anonymous"}</p>
@@ -216,6 +220,8 @@ const CommentSection = ({ pollId }) => {
                             src={replyUser.image || "/default-avatar.png"}
                             alt="User Avatar"
                             className="w-6 h-6 mr-2 rounded-full"
+                            width={24}
+                            height={24}
                           />
                           <div className="flex-1">
                             <p className="font-bold">{replyUser.name || "Anonymous"}</p>
@@ -263,7 +269,7 @@ const CommentSection = ({ pollId }) => {
               ) : (
                 <button
                   onClick={() => setReplyingToCommentId(comment.id)}
-                  className="mt-2 text-sm text-blue-500 hover:underline"
+                  className="mt-2 text-sm text-blue-500 transition-colors duration-200 hover:text-blue-700"
                 >
                   Reply
                 </button>
@@ -273,19 +279,18 @@ const CommentSection = ({ pollId }) => {
         })}
       </div>
 
-      <div className="flex items-center w-full mt-4">
+      <div className="flex mt-4">
         <input
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
-          className="w-full p-2 mr-2 border rounded"
+          className="flex-1 p-2 border rounded"
           placeholder="Add a comment..."
-          autoFocus
         />
         <button
           onClick={handleAddComment}
-          className="px-3 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
+          className="flex items-center justify-center px-4 py-2 ml-2 text-white bg-blue-500 rounded hover:bg-blue-600"
         >
-          <IoSend size={20} />
+          <IoSend />
         </button>
       </div>
     </div>

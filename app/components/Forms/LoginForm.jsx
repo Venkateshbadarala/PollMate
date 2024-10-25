@@ -47,8 +47,8 @@ const LoginForm = () => {
 
       <div className="flex flex-col items-center justify-center lg:flex-row">
         <div className="flex items-center justify-center w-full lg:w-1/2 pt-[2%] h-[80vh]">
-          <div className="sm:w-[28rem] p-8 bg-white rounded-[15px] shadow-lg  x-sm:w-[23rem] ">
-            <h2 className="mb-1 text-3xl font-extrabold text-black text-start">Welcome Back...</h2>
+          <div className="sm:w-[28rem] p-8 bg-white rounded-[15px] shadow-lg  x-sm:w-[20rem] ">
+            <h2 className="mb-1 text-3xl font-extrabold text-black text-start x-sm:text-xl">Welcome Back...</h2>
             <p className="mb-6 text-gray-700 text-start">Please enter your email and password</p>
 
             <form onSubmit={handleSubmit(handleLogin)} className="space-y-4 text-black">
@@ -93,7 +93,7 @@ const LoginForm = () => {
                 </div>
 
                 <div className='flex items-center justify-center w-1/2 p-2 border-2 border-opacity-50 rounded border-violet-500'>
-                  <Link href='/forgot' className='text-[15px]'>Forgot Password</Link>
+                  <Link href='/forgot' className='text-[15px] x-sm:text-[11px]'>Forgot Password</Link>
                 </div>
               </div>
             </form>

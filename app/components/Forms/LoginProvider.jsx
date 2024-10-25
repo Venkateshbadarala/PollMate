@@ -46,7 +46,7 @@ const LoginProvider = () => {
                 <button
                     onClick={() => handleSignin(item.name)}
                     key={index}
-                    className='flex flex-row items-center justify-center gap-6 text-xl font-bold bg-violet-400 rounded shadow-2xl sm:w-[24rem] h-14 x-sm:w-[20rem]'>
+                    className='flex flex-row items-center justify-center gap-6 text-xl font-bold bg-violet-400 rounded shadow-2xl sm:w-[24rem] h-14 x-sm:w-[16rem] x-sm:text-[15px]'>
                     {item.displayName}
                     <Image src={item.icon} height={30} width={30} alt='Google icon' />
                 </button>

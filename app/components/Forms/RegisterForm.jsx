@@ -33,29 +33,30 @@ const RegisterForm = () => {
   };
 
   const handleRegister = async (data) => {
-    if (!image) {
-      toast.error("Please upload an image.");
-      return;
-    }
-
     try {
       setLoading(true);
       const userCredential = await createUserWithEmailAndPassword(auth, data.email, data.password);
       const user = userCredential.user;
 
-      const storage = getStorage();
-      const storageRef = ref(storage, `users/${user.uid}/profile.jpg`); 
+      // If an image is provided, upload it to Firebase Storage
+      let downloadURL = null;
+      if (image) {
+        const storage = getStorage();
+        const storageRef = ref(storage, `users/${user.uid}/profile.jpg`); 
+        await uploadBytes(storageRef, image); 
+        downloadURL = await getDownloadURL(storageRef); 
+      }
 
-      await uploadBytes(storageRef, image); 
-      const downloadURL = await getDownloadURL(storageRef); 
-
+      // Store user data in Firestore
       await setDoc(doc(db, "users", user.uid), {
         name: data.name,
         email: data.email,
-        image: downloadURL,
+        image: downloadURL || null, // Set image to null if no image was uploaded
         createdAt: new Date(),
       });
+
       toast.success("User registered successfully!");
+      router.push('/login'); // Redirect to login after successful registration
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
         toast.error("Email already exists");
@@ -71,10 +72,10 @@ const RegisterForm = () => {
     <div className="min-h-screen bg-gradient-to-r from-violet-950 to-violet-950">
       <LoginNavbar menuItems={menuItems}/>
       <div className="flex flex-col items-center justify-center lg:flex-row ">
-        <div className="flex items-center justify-center w-full lg:w-1/2 pt-[2%] ">
-          <div className="sm:w-[28rem] p-8 bg-white rounded-[15px] shadow-lg h-full x-sm:w-[23rem]">
-            <h2 className="mb-1 text-[1.7rem] font-extrabold text-black text-start">Create an Account</h2>
-            <p className="mb-6 text-gray-700 text-start">Please fill in your details below</p>
+        <div className="flex items-center justify-center w-full lg:w-1/2 pt-[12%] ">
+          <div className="sm:w-[28rem] p-8 bg-white rounded-[15px] shadow-lg h-full x-sm:w-[21rem]">
+            <h2 className="mb-1 text-[1.7rem] font-extrabold text-black text-start x-sm:text-[18px]">Create an Account</h2>
+            <p className="mb-6 text-gray-700 text-start x-sm:text-[12px]">Please fill in your details below</p>
 
             <form onSubmit={handleSubmit(handleRegister)} className="relative flex flex-col gap-5 text-black ">
               <div className="absolute right-0 flex flex-col items-center mb-2 -top-[6rem]">

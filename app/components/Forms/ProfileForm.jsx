@@ -25,6 +25,7 @@ const Profile = () => {
   
   const router = useRouter();
   const { userData } = useAuth();
+  
   // Check if the current user is a Google user
   const currentUser = auth.currentUser;
   const isGoogleUser = currentUser?.providerData.some(provider => provider.providerId === 'google.com');
@@ -36,9 +37,9 @@ const Profile = () => {
       const unsubscribe = onSnapshot(userDocRef, (doc) => {
         if (doc.exists()) {
           const userData = doc.data();
-          setUsername(userData.displayName || currentUser.displayName);
+          setUsername(userData.name || currentUser.displayName); // use displayName instead of name
           setEmail(userData.email || currentUser.email);
-          setPhotoURL(userData.photoURL || currentUser.photoURL);
+          setPhotoURL(userData.image || currentUser.photoURL);
         }
       });
       return () => unsubscribe();
@@ -63,7 +64,7 @@ const Profile = () => {
       }
 
       const profileUpdates = {
-        displayName: username,
+        displayName: username, // Change to displayName
         photoURL: newPhotoURL,
       };
 
@@ -73,8 +74,8 @@ const Profile = () => {
       // Update Firestore with new profile data
       const userDocRef = doc(db, "users", currentUser.uid);
       await updateDoc(userDocRef, {
-        displayName: username,
-        photoURL: newPhotoURL,
+        name: username,
+        image: newPhotoURL,
         email: email, // Update email if necessary
       });
 
@@ -112,40 +113,30 @@ const Profile = () => {
 
   return (
     <div className="flex flex-col items-center justify-center h-[80vh]">
-      <div className="p-8 text-center bg-white rounded-lg shadow-lg w-[23rem]">
-        <h1 className="mb-6 text-4xl font-bold text-violet-700">Profile</h1>
-        {/* Check if userData exists before accessing its properties */}
-        {userData ? (
-          <Image
-            src={userData.image || "https://placehold.co/300x300.png"}
-            alt="Profile"
-            width={128}
-            height={128}
-            className="object-cover w-32 h-32 mx-auto mb-4 border-4 rounded-full border-violet-400"
-          />
-        ) : (
-          <Image
-            src="https://placehold.co/300x300.png"
-            alt="Default Profile"
-            width={128}
-            height={128}
-            className="object-cover w-32 h-32 mx-auto mb-4 border-4 rounded-full border-violet-400"
-          />
-        )}
+      <div className="p-8 text-center bg-white rounded-lg shadow-lg w-[23rem] x-sm:w-[20rem]">
+        <h1 className="mb-6 text-4xl font-bold text-blue-700">Profile</h1>
+        
+        <Image
+          src={photoURL || "https://placehold.co/300x300.png"}
+          alt="Profile"
+          width={128}
+          height={128}
+          className="object-cover w-32 h-32 mx-auto mb-4 border-4 rounded-full border-blue-400"
+        />
        
-        <h2 className="text-2xl font-semibold text-gray-700">{userData?.name || "Loading..."}</h2>
-        <p className="text-gray-500">{userData?.email || "Loading..."}</p>
+        <h2 className="text-2xl font-semibold text-gray-700">{username || "Loading..."}</h2>
+        <p className="text-gray-500">{email || "Loading..."}</p>
 
         <div className="flex items-center justify-center gap-10 mt-4">
           <button
-            className={`px-6 py-3 font-bold text-white bg-violet-500 rounded ${isGoogleUser ? "opacity-50 cursor-not-allowed" : "hover:bg-violet-600"}`}
+            className={`px-6 py-3 font-bold text-white bg-blue-500 rounded ${isGoogleUser ? "opacity-50 cursor-not-allowed" : "hover:bg-violet-600"}`}
             onClick={() => !isGoogleUser && setModalIsOpen(true)}
             disabled={isGoogleUser}
           >
             {isGoogleUser ? "Edit in Google Account" : "Edit"}
           </button>
           <button
-            className="p-2 font-bold text-black border-2 rounded border-violet-600 hover:bg-violet-600 hover:text-white"
+            className="p-2 font-bold text-black border-2 rounded border-blue-600 hover:bg-blue-600 hover:text-white"
             onClick={handleLogout}
           >
             Sign Out

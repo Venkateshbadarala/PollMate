@@ -19,29 +19,24 @@ const Cards = () => {
     const db = getFirestore();
     const auth = getAuth();
 
-    // Function to fetch polls created by the logged-in user
     const fetchPollCount = async () => {
       const currentUser = auth.currentUser;
       if (currentUser) {
         const pollsRef = collection(db, 'polls');
-        const userPollsQuery = query(pollsRef, where('creatorId', '==', currentUser.uid)); // Filter polls by creatorId
+        const userPollsQuery = query(pollsRef, where('creatorId', '==', currentUser.uid));
         const userPollsSnapshot = await getDocs(userPollsQuery);
 
-        setPollCount(userPollsSnapshot.size); // Set the count of polls created by the user
+        setPollCount(userPollsSnapshot.size);
       }
     };
 
-    // Fetch active user count and polls
     const fetchData = () => {
-      // Listener for users count
       const unsubscribeUsers = onSnapshot(collection(db, 'users'), (snapshot) => {
-        setActiveUserCount(snapshot.size); // Set the number of active users
+        setActiveUserCount(snapshot.size);
       });
 
-      // Fetch poll count for the logged-in user
       fetchPollCount();
 
-      // Cleanup function for the snapshot listener
       return () => {
         unsubscribeUsers();
       };
@@ -66,37 +61,37 @@ const Cards = () => {
   ];
 
   return (
-    <div className='flex items-center justify-center gap-8 p-3 sm:flex-row sm:gap-1 x-sm:gap-8 lg:gap-8 x-sm:flex-col '>
+    <div className="flex  items-center justify-center gap-4 sm:flex-row sm:gap-8 x-sm:flex-col">
       {stats.map((item, index) => (
         <div
           key={index}
-          className="text-center mx-1 flex relative flex-row justify-around items-center w-[23rem] h-[10rem] rounded-[10px] border border-blue-600 shadow-md shadow-blue-300 hover:shadow-blue-600 transition-shadow duration-300 ease-in-out p-4 bg-blue-800"
+          className="text-center flex flex-col x-sm:flex-row x-sm:gap-2 sm:flex-row items-center w-full sm:w-[20rem]  lg:w-[23rem] p-6 rounded-[10px] border border-blue-600 shadow-md shadow-blue-300 hover:shadow-blue-600 transition-shadow duration-300 ease-in-out bg-blue-800"
         >
-          <div className="flex flex-col gap-2">
-            <p className="text-[20px] font-extrabold text-white">{item.title}</p>
-            <div className="flex items-center ml-7">
+          <div className="flex flex-col items-center gap-2 sm:mr-4">
+            <p className="text-lg md:text-xl font-extrabold text-white">{item.title}</p>
+            <div className="flex items-center">
               <CountUp
                 end={item.num}
                 duration={5}
                 delay={2}
-                className="text-[3rem] font-bold text-white"
+                className="text-3xl md:text-4xl font-bold text-white"
               />
               <Image
                 src={item.png}
-                width={300}
-                height={300}
+                width={30}
+                height={30}
                 alt="icon"
-                className="object-fit h-[1.8rem] w-[2.3rem]"
+                className="h-7 w-8 ml-2"
               />
             </div>
           </div>
-          <div className="flex flex-col items-center">
+          <div className="flex items-center justify-center mt-4 sm:mt-0">
             <Image
               src={item.image}
-              width={300}
-              height={300}
+              width={100}
+              height={100}
               alt={item.title}
-              className="mb-2 h-[6rem] w-[6rem] rounded-full border-2 p-4"
+              className="h-24 w-24 rounded-full border-2 p-2"
             />
           </div>
         </div>

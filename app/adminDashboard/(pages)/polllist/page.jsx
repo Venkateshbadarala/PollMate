@@ -8,8 +8,8 @@ const page = () => {
    
   return (
     <div className=' pt-[6%]'>
-       <h1 className='p-2 py-3 text-3xl font-bold text-center '>Polls List</h1>
-      {/* <PollList  db={db} /> */}
+       <h1 className='p-2  text-3xl font-bold  '>Polls List</h1>
+     
       <AllPoll/>
     </div>
   )

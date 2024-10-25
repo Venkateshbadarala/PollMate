@@ -99,10 +99,10 @@ const AdsComponent = ({ user }) => {
 
   return (
     <div className="relative p-4">
-      <div className="absolute p-2 right-[1rem] -top-[4rem]">
+      <div className="absolute p-2 sm:left-[20rem] -top-[5.5rem] ">
         {isAdmin && (
           <button
-            className="px-4 py-2 mt-4 text-white transition duration-200 bg-blue-600 rounded hover:bg-blue-700"
+            className="px-4 w-[6rem] py-2 mt-4 text-white transition duration-200 bg-blue-600 rounded hover:bg-blue-700"
             onClick={() => setAdsModalOpen(true)}
           >
             Add Ad

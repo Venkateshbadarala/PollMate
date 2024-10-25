@@ -15,7 +15,7 @@ const Navbar = () => {
   const db = getFirestore();
 
   return (
-    <div className='flex flex-row items-center  lg:justify-between x-sm:p-0 x-sm:ml-12 md:p-1 md:gap-8 lg:gap-[14rem]'>
+    <div className='flex flex-row items-center  lg:justify-between x-sm:p-0 md:p-1 md:gap-8 sm:gap-[4.5rem] lg:gap-[14rem]'>
       <div className='flex items-center '>
         <div className='sm:hidden x-sm:hidden md:flex lg:hidden'>
         <BurgerMenu/>
@@ -31,7 +31,7 @@ const Navbar = () => {
 
       <div className='flex items-center md:flex-row x-sm:flex-col md:gap-6'>
         <div>
-          <div className="relative flex items-center bg-white rounded-lg lg:w-[300px] md:w-[250px] p-1 border x-sm:w-[150px] x-sm:hidden md:flex x-sm:py-3 md:p-2" >
+          <div className="relative flex items-center bg-white rounded-lg lg:w-[300px] md:w-[250px] p-1 border x-sm:w-[150px] x-sm:hidden md:flex x-sm:py-3 md:p-2 sm:w-[200px]" >
            <SearchComponent/>
           </div>
         </div>
@@ -64,7 +64,7 @@ const Navbar = () => {
         </div>
 
         <div className='p-2'>
-          <div className="relative flex items-center justify-center  bg-white rounded-lg w-[300px] p-1 border  x-sm:flex md:hidden sm:w-[600px] ">
+          <div className="relative flex items-center justify-center  bg-white rounded-lg w-[300px] p-1 border  x-sm:flex md:hidden sm:w-[500px] ">
           <SearchComponent/>
           </div>
         </div>
