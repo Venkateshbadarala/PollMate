@@ -101,7 +101,7 @@ const PollDetails = () => {
 
   // Handle poll deletion by the creator
   const handleDeletePoll = async () => {
-    const confirmDelete = toast.confirm("Are you sure you want to delete this poll?");
+    const confirmDelete = window.confirm("Are you sure you want to delete this poll?");
     if (!confirmDelete) return;
 
     try {
@@ -117,7 +117,7 @@ const PollDetails = () => {
 
   // Handle sharing the poll link
   const handleSharePoll = () => {
-    const pollLink = `${window.location.origin}/polls/${id}`;
+    const pollLink = `${window.location.origin}/adminDashboard/${id}`;
     navigator.clipboard
       .writeText(pollLink)
       .then(() => {
