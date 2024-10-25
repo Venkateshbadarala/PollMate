@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
 import { AiOutlineClose } from 'react-icons/ai'; // Importing the cross icon from react-icons
 
@@ -26,7 +27,7 @@ const Ads = ({ ads, onDelete, isAdmin }) => {
       {ads.length > 0 ? (
         <div className="lg:w-full relative p-4 text-center transition-transform transform bg-white rounded-lg shadow-lg hover:scale-102 sm:w-[40rem] md:w-[50rem] x-sm:w-[25rem] h-[10rem]">
           {/* Ad Image */}
-          <img
+          <Image
             src={ads[currentIndex]?.imgSrc} // Use optional chaining
             alt={ads[currentIndex]?.description} // Use optional chaining
             className="rounded-lg w-full h-[70%] object-contain" // Adjust image height to 70%

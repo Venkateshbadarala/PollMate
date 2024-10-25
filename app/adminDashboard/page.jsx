@@ -14,7 +14,7 @@ import AllPOll from '../components/polls/AllPoll'
 const Dashboard = () => {
 
   return (
-    <div className='flex flex-col mt-10 lg:p-8 x-sm:mt-0 x-sm:mr-[12rem]'>
+    <div className='flex flex-col mt-10 lg:p-8 x-sm:mt-0 x-sm:mr-[12rem] '>
       <h1 className='p- text-[2rem] x-sm:p-0'>Dashboard</h1>
       <div >
         <CreateAds/>

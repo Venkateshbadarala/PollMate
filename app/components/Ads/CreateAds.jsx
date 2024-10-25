@@ -7,6 +7,7 @@ import { db, storage } from '../../Firebase/firebase-config';
 import { collection, addDoc, deleteDoc, doc, getDocs } from 'firebase/firestore';
 import { toast } from 'react-hot-toast';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import Image from 'next/image';
 
 const AdsComponent = ({ user }) => {
   const [adsModalOpen, setAdsModalOpen] = useState(false);
@@ -119,7 +120,7 @@ const AdsComponent = ({ user }) => {
               <span className="font-semibold">Image: (max 1MB)</span>
               <div className="flex items-center justify-center w-full h-32 mt-2 border-2 border-gray-400 border-dashed rounded-lg">
                 {adImage ? (
-                  <img
+                  <Image
                     src={URL.createObjectURL(adImage)}
                     alt="Ad Preview"
                     className="object-cover w-full h-full rounded-lg"

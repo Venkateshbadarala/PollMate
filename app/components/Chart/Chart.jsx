@@ -124,7 +124,7 @@ const UserActivityGraph = () => {
   }, []);
 
   return (
-    <div className="flex flex-col justify-center items-center md:w-full p-8 lg:bg-white rounded-lg lg:shadow-lg x-sm:w-[25.3rem] x-sm:p-0 sm:w-[40rem] x-sm:mr-1">
+    <div className="flex flex-col justify-center items-center md:w-full   lg:bg-white rounded-lg lg:shadow-lg x-sm:w-[25.3rem] x-sm:p-0 sm:w-[40rem] x-sm:mr-1  ">
         
       <h2 className="flex flex-row items-center justify-between mb-4 text-2xl font-bold text-gray-800 gap-[20rem] x-sm:flex-col x-sm:gap-3 x-sm:p-2">
       <div>User Activity Overview</div> 

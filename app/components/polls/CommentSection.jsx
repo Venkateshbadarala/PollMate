@@ -5,6 +5,7 @@ import { auth, db } from "../../Firebase/firebase-config";
 import { toast } from "react-hot-toast";
 import { formatDistanceToNow } from 'date-fns';
 import { IoSend } from "react-icons/io5";
+import Image from "next/image";
 
 const CommentSection = ({ pollId }) => {
   const [newComment, setNewComment] = useState("");
@@ -175,7 +176,7 @@ const CommentSection = ({ pollId }) => {
               className="p-3 mb-4 transition-shadow duration-300 bg-gray-100 rounded-lg hover:shadow-md"
             >
               <div className="flex items-center mb-2">
-                <img
+                <Image
                   src={user.image || "/default-avatar.png"}
                   alt="User Avatar"
                   className="w-8 h-8 mr-2 rounded-full"
@@ -211,7 +212,7 @@ const CommentSection = ({ pollId }) => {
                     return (
                       <div key={idx} className="p-2 mb-2 rounded-lg shadow-sm bg-gray-50">
                         <div className="flex items-center mb-1">
-                          <img
+                          <Image
                             src={replyUser.image || "/default-avatar.png"}
                             alt="User Avatar"
                             className="w-6 h-6 mr-2 rounded-full"
