@@ -24,14 +24,14 @@ body {
 /* Define custom fonts */
 @font-face {
   font-family: 'Asteriod';
-  src: url("./assets/fonts/HarewataruSansShavian-pg9r1.ttf") format('opentype');
+  src: url("./Assets/fonts/HarewataruSansShavian-pg9r1.ttf") format('opentype');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Logo';
-  src: url("./assets/fonts/AnandaBlackPersonalUseRegular-rg9Rx.ttf") format('opentype');
+  src: url("./Assets/fonts/AnandaBlackPersonalUseRegular-rg9Rx.ttf") format('opentype');
   font-weight: normal;
   font-style: normal;
 }
