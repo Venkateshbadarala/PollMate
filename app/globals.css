@@ -1,27 +1,49 @@
-/* Import Tailwind and custom fonts */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Global styles */
+
+
 body {
-  font-family: "Arial", "Helvetica", sans-serif;
+ 
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Utility class for balanced text wrapping */
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
 }
 
-/* Custom fonts */
+
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+  font-family: "asteriod";
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  /* background-color: rgba(224, 216, 255, 0.3); */
+}
+
+*{
+  -ms-overflow-style: none;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+
 @font-face {
   font-family: 'Asteriod';
   src: url("./assets/fonts/HarewataruSansShavian-pg9r1.ttf") format('opentype');
   font-weight: normal;
   font-style: normal;
+}
+
+.asteriod{
+  font-family: 'Asteriod';
+  letter-spacing: 0.1em;
 }
 
 @font-face {
@@ -31,32 +53,12 @@ body {
   font-style: normal;
 }
 
-/* Applying custom fonts */
-body {
-  font-family: "Montserrat", "Asteriod", sans-serif;
-  font-weight: 600;
-  font-optical-sizing: auto;
-}
-
-.asteriod {
-  font-family: 'Asteriod';
-  letter-spacing: 0.1em;
-}
-
-.logo {
+.logo{
   font-family: 'Logo';
   letter-spacing: 0.1em;
 }
 
-/* Custom scrollbar styling */
-* {
-  -ms-overflow-style: none; /* for IE and Edge */
-}
-::-webkit-scrollbar {
-  display: none; /* for Chrome, Safari, and Opera */
-}
 
-/* Loader animation */
 .loader {
   width: 48px;
   height: 48px;
@@ -67,7 +69,6 @@ body {
   position: relative;
   animation: pulse 1s linear infinite;
 }
-
 .loader:after {
   content: '';
   position: absolute;
@@ -83,13 +84,11 @@ body {
   animation: scaleUp 1s linear infinite;
 }
 
-/* Keyframes for loader animations */
 @keyframes scaleUp {
-  0% { transform: translate(-50%, -50%) scale(0); }
-  60%, 100% { transform: translate(-50%, -50%) scale(1); }
+  0% { transform: translate(-50%, -50%) scale(0) }
+  60% , 100% { transform: translate(-50%, -50%)  scale(1)}
 }
-
 @keyframes pulse {
-  0%, 60%, 100% { transform: scale(1); }
-  80% { transform: scale(1.2); }
+  0% , 60% , 100%{ transform:  scale(1) }
+  80% { transform:  scale(1.2)}
 }

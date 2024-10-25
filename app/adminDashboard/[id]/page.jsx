@@ -136,7 +136,7 @@ const PollDetails = () => {
   const totalVotes = poll.options.reduce((total, option) => total + option.votes, 0);
 
   return (
-    <div className="flex px-10 justify-center h-[80vh] gap-10 md:mt-[4vh]  x-sm:mt-[30vh] flex-row ">
+    <div className="flex px-10 justify-center h-[80vh] gap-10 md:mt-[4vh]  x-sm:mt-[20vh] flex-row sm:mt-[6vh] ">
       <Toaster />
       <div className="flex flex-row items-center justify-center gap-10 x-sm:flex-col md:flex-row">
         <div className="flex flex-col gap-10">
