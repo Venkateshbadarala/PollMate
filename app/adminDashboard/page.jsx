@@ -26,7 +26,7 @@ const Dashboard = () => {
         
       
        <h1 className='p-2 py-3 text-2xl font-bold border-l-4 border-l-blue-900 text-start'>Graph Analysis</h1>
-       <div className='flex flex-col items-center justify-center gap-3 py-6'>
+       <div className='flex flex-col items-center justify-center gap-3 py-6 lg:ml-[10rem] md:ml-[1rem]'>
        
       <Chart/>
        </div>
