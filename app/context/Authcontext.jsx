@@ -1,5 +1,5 @@
 "use client";
-import React, { createContext, useState, useEffect, useContext } from "react";
+import React, { createContext, useState, useEffect, useContext, useCallback } from "react";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../Firebase/firebase-config";
 import { getFirestore, doc, getDoc, updateDoc } from "firebase/firestore";
@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
   const router = useRouter();
   const db = getFirestore();
 
-  const fetchUserData = async (userId) => {
+  const fetchUserData = useCallback(async (userId) => {
     try {
       const userDocRef = doc(db, "users", userId);
       const docSnap = await getDoc(userDocRef);
@@ -26,9 +26,9 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
-  };
+  }, [db]);
 
-  const updateUserStatus = async (userId, status) => {
+  const updateUserStatus = useCallback(async (userId, status) => {
     try {
       const userDocRef = doc(db, "users", userId);
       await updateDoc(userDocRef, {
@@ -38,7 +38,7 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       console.error("Error updating user status:", error);
     }
-  };
+  }, [db]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -55,7 +55,7 @@ export const AuthProvider = ({ children }) => {
     });
 
     return () => unsubscribe();
-  }, [router, db]);
+  }, [router, fetchUserData, updateUserStatus]);
 
   const logout = async () => {
     try {
