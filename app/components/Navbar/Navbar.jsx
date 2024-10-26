@@ -15,7 +15,7 @@ const Navbar = () => {
   const db = getFirestore();
 
   return (
-    <div className='flex flex-row items-center  lg:justify-between x-sm:p-0 md:p-1 md:gap-8 sm:gap-[4.5rem] lg:gap-[14rem]'>
+    <div className='flex flex-row items-center  lg:justify-between x-sm:p-0 md:p-1 md:gap-8 sm:gap-[4.5rem] lg:gap-[25rem]'>
       <div className='flex items-center '>
         <div className='sm:hidden x-sm:hidden md:flex lg:hidden'>
         <BurgerMenu/>
