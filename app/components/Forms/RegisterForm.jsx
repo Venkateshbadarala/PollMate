@@ -72,7 +72,7 @@ const RegisterForm = () => {
     <div className="min-h-screen bg-gradient-to-r from-violet-950 to-violet-950">
       <LoginNavbar menuItems={menuItems}/>
       <div className="flex flex-col items-center justify-center lg:flex-row ">
-        <div className="flex items-center justify-center w-full lg:w-1/2 h-[80vh] ">
+        <div className="flex items-center justify-center w-full lg:w-1/2 pt-[6%] ">
           <div className="sm:w-[28rem] p-8 bg-white rounded-[15px] shadow-lg h-full x-sm:w-[21rem]">
             <h2 className="mb-1 text-[1.7rem] font-extrabold text-black text-start x-sm:text-[18px]">Create an Account</h2>
             <p className="mb-6 text-gray-700 text-start x-sm:text-[12px]">Please fill in your details below</p>
