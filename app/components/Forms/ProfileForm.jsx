@@ -121,22 +121,22 @@ const Profile = () => {
           alt="Profile"
           width={128}
           height={128}
-          className="object-cover w-32 h-32 mx-auto mb-4 border-4 rounded-full border-blue-400"
+          className="object-cover w-32 h-32 mx-auto mb-4 border-4 border-blue-400 rounded-full"
         />
        
         <h2 className="text-2xl font-semibold text-gray-700">{username || "Loading..."}</h2>
         <p className="text-gray-500">{email || "Loading..."}</p>
 
-        <div className="flex items-center justify-center gap-10 mt-4">
+        <div className="flex items-center justify-center gap-4 mt-4">
           <button
-            className={`px-6 py-3 font-bold text-white bg-blue-500 rounded ${isGoogleUser ? "opacity-50 cursor-not-allowed" : "hover:bg-violet-600"}`}
+            className={` p-2 font-bold text-white bg-blue-500 rounded text-[12px] ${isGoogleUser ? "opacity-50 cursor-not-allowed" : "hover:bg-violet-600"}`}
             onClick={() => !isGoogleUser && setModalIsOpen(true)}
             disabled={isGoogleUser}
           >
             {isGoogleUser ? "Edit in Google Account" : "Edit"}
           </button>
           <button
-            className="p-2 font-bold text-black border-2 rounded border-blue-600 hover:bg-blue-600 hover:text-white"
+            className="p-2 font-bold text-black border-2 border-blue-600 rounded  hover:bg-blue-600 hover:text-white text-[13px]"
             onClick={handleLogout}
           >
             Sign Out

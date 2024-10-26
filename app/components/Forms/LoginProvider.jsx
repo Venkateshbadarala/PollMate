@@ -5,6 +5,7 @@ import { auth, db } from '../../Firebase/firebase-config';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 import GoogleIcon from '../../Assets/images/google.png';
+import { toast, Toaster } from 'react-hot-toast';
 
 const providers = [
     {
@@ -24,24 +25,26 @@ const LoginProvider = () => {
                 const result = await signInWithPopup(auth, provider);
                 const userEmail = result.user.email;
 
+                // Check if user document already exists
                 const userDocRef = doc(db, 'users', userEmail);
                 const userDoc = await getDoc(userDocRef);
 
                 if (userDoc.exists()) {
-                    alert('Email already exists. Please log in with your credentials.');
+                    toast.error('Email already exists. Please log in with your credentials.');
                 } else {
-                    alert('Welcome! Redirecting to your dashboard.');
+                    toast.success('Welcome! Redirecting to your dashboard.');
                     router.push('/adminDashboard');
                 }
             } catch (error) {
                 console.error("Error during Google sign-in:", error);
-                alert(error.message);
+                toast.error("Error during sign-in. Please try again.");
             }
         }
     };
 
     return (
         <div>
+            <Toaster /> {/* Initialize Toaster for react-hot-toast */}
             {providers.map((item, index) => (
                 <button
                     onClick={() => handleSignin(item.name)}
