@@ -65,3 +65,19 @@ body {
   0%, 60%, 100% { transform: scale(1); }
   80% { transform: scale(1.2); }
 }
+
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+.gradient-bg {
+  background: linear-gradient(270deg, #1e90ff, #00bfff);
+  background-size: 200% 200%;
+  animation: gradientAnimation 1.5s ease-in-out infinite;
+}

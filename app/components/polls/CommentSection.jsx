@@ -164,7 +164,7 @@ const CommentSection = ({ pollId }) => {
   };
 
   return (
-    <div className="flex flex-col mt-8 bg-white w-full sm:w-[30rem] p-4 rounded-md x-sm:w-[20.6rem] lg:h-[35rem] shadow-lg ">
+    <div className="flex flex-col mt-8 bg-white w-full sm:w-[30rem] p-4 rounded-md x-sm:w-[24rem] lg:h-[35rem] shadow-lg ">
       <h3 className="mb-4 text-lg font-bold">Comments:</h3>
 
       <div className="overflow-y-auto max-h-64 lg:max-h-[30rem]">

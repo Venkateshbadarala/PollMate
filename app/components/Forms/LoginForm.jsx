@@ -98,13 +98,13 @@ const LoginForm = () => {
               </div>
             </form>
 
-            {/* <div className="flex items-center my-6">
+            <div className="flex items-center my-6">
               <div className="w-full h-px bg-gray-300" />
               <p className="mx-4 text-sm text-gray-600">or</p>
               <div className="w-full h-px bg-gray-300" />
-            </div> */}
+            </div>
 
-            {/* <LoginProvider /> */}
+            <LoginProvider />
 
            
           </div>
@@ -115,3 +115,5 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
+
+

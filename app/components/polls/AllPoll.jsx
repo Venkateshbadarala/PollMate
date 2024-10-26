@@ -4,7 +4,7 @@ import { collection, getDocs, query, where, onSnapshot } from "firebase/firestor
 import { db, auth } from "../../Firebase/firebase-config";
 import { useRouter } from "next/navigation"; // Import router for redirection
 import Link from "next/link";
-import { toast,Toaster } from "react-hot-toast"; // If using toast for notifications
+import { toast, Toaster } from "react-hot-toast"; // If using toast for notifications
 
 const AllPolls = () => {
   const [polls, setPolls] = useState([]);
@@ -58,16 +58,18 @@ const AllPolls = () => {
 
   if (loading) return <div>Loading polls...</div>;
 
-  if (polls.length === 0) return <div>No polls available</div>;
+  if (polls.length === 0) return <div className="pl-10">No polls available</div>;
 
   return (
     <div className="p-4">
       <Toaster/>
-      <div className="grid grid-cols-2 gap-8 mt-4 x-sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-8 mt-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {polls.map((poll) => (
           <Link href={`/adminDashboard/${poll.id}`} key={poll.id}>
-            <div className="flex items-center justify-center p-4 x-sm:w-[16rem] uppercase transition-shadow duration-200 border border-blue-500 rounded shadow-md hover:shadow-lg ">
-              <h2 className="text-2xl font-bold x-sm:text-[16px]">{poll.question}</h2>
+            <div className="flex items-center justify-center w-full max-w-xs p-4 mx-auto uppercase transition-shadow duration-200 border border-blue-500 rounded shadow-md hover:shadow-lg xsm:w-64 lg:w-80">
+              <h2 className="overflow-y-auto text-lg font-bold text-center sm:text-md lg:text-xl">
+                {poll.question}
+              </h2>
             </div>
           </Link>
         ))}

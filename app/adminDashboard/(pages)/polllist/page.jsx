@@ -8,7 +8,7 @@ const page = () => {
    
   return (
     <div className=' pt-[6%]'>
-       <h1 className='p-2  text-3xl font-bold  '>Polls List</h1>
+       <h1 className='p-2 pl-10 text-3xl font-bold '>Polls List</h1>
      
       <AllPoll/>
     </div>

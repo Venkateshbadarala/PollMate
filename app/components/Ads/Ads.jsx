@@ -27,13 +27,13 @@ const Ads = ({ ads, onDelete, isAdmin }) => {
           <Image
             src={ads[currentIndex]?.imgSrc}
             alt={ads[currentIndex]?.description}
-            className="rounded-lg w-full h-[70%] object-cover sm:h-[250px] h-[150px]"
+            className="rounded-lg w-full lg:h-[20rem] object-cover sm:h-[250px]  "
             onClick={() => handleAdClick(ads[currentIndex]?.url)}
-            width={400}
-            height={400}
+            width={1000}
+            height={1000}
           />
           <p
-            className="mt-2 text-sm text-lg font-semibold text-gray-800 text-start line-clamp-3 sm:text-lg"
+            className="mt-2 text-lg font-semibold text-gray-800 text-start line-clamp-3 sm:text-lg"
             style={{
               display: '-webkit-box',
               WebkitBoxOrient: 'vertical',

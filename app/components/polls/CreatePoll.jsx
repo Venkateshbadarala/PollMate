@@ -81,7 +81,7 @@ const CreatePoll = () => {
         onClick={() => setIsModalOpen(true)}
         className="w-full text-white transition duration-300 bg-blue-500 rounded-md hover:bg-blue-700"
       >
-        <p className="p-2 text-[16px]">Create Poll</p>
+        <p className="p-2 sm:text-[16px] x-sm:text-[13px]">Create Poll</p>
       </button>
 
       {isModalOpen && (

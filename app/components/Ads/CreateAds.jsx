@@ -115,7 +115,7 @@ const AdsComponent = ({ user }) => {
           <form onSubmit={handleAdSubmit} className="mt-4 space-y-4">
             {/* Image Upload Section */}
             <label className="block cursor-pointer">
-              <span className="font-semibold">Image: (max 10MB)</span>
+              <span className="font-semibold">Image: (max 2MB)</span>
               <div className="flex items-center justify-center w-full h-32 mt-2 border-2 border-gray-400 border-dashed rounded-lg">
                 {adImage ? (
                   <Image

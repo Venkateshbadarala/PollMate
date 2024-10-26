@@ -41,7 +41,7 @@ const Navbar = () => {
         <div className='flex flex-row items-center x-sm:justify-between x-sm:gap-[3rem] p-1 font-medium text-[12px] x-sm:pr- sm:gap-[12rem] '>
         <div className='flex items-center justify-center gap-1 md:hidden sm:flex '>
         <BurgerMenu/>
-        <p className='sm:text-3xl md:hidden x-sm:text-xl'>PollMate</p>
+        <p className='sm:text-3xl md:hidden x-sm:text-2xl'>PollMate</p>
           </div>
          
         <div className='flex items-center gap-6'>
