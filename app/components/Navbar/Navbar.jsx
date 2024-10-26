@@ -47,7 +47,7 @@ const Navbar = () => {
         <div className='flex items-center gap-6'>
         <CreatePoll/>
         
-          <Link href='/adminDashboard/profile' className='flex items-center gap-2   rounded-lg text-[13px] hover:bg-blue-50'>
+          <Link href='/adminDashboard/profile' className='flex items-center gap-2   rounded-lg text-[13px] hover:bg-blue-50 p-2'>
             <Image
               src={userData?.image || "https://placehold.co/300x300.png"}
               alt="Profile"
@@ -55,7 +55,7 @@ const Navbar = () => {
               width={20}
               height={20}
             />
-            <div className='flex-col x-sm:hidden md:flex'>
+            <div className='flex-col x-sm:hidden md:flex text-[10px]'>
               <p>Personal</p>
               <p>{userData?.name || 'Guest'}</p>
             </div>
