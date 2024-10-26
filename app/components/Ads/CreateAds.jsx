@@ -17,7 +17,7 @@ const AdsComponent = ({ user }) => {
   const [ads, setAds] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
   const { userData } = useAuth();
-  const adminEmail = 'Kanikesuresh33@gmail.com';
+  const adminEmail = 'kanikesuresh33@gmail.com';
   const isAdmin = userData?.email === adminEmail;
 
   // Fetch ads from Firebase

@@ -313,7 +313,7 @@ const UserActivityGraph = () => {
 
   return (
     <div className="flex flex-col items-center justify-center w-full lg:w-[70rem] lg:bg-white rounded-lg lg:shadow-lg lg:p-6">
-      <h2 className="flex flex-col gap-12 mb-4 text-2xl font-bold text-gray-800 md:flex-row md:justify-between md:items-center">
+      <h2 className="flex flex-col mb-4 text-2xl font-bold text-gray-800 x-sm:gap-4 md:flex-row md:justify-between md:items-center lg:gap-12">
         <div>User Activity Overview</div>
         <div className="flex gap-4 mt-4 md:mt-0 ">
           <div className="flex items-center gap-2 text-blue-900">
@@ -327,7 +327,7 @@ const UserActivityGraph = () => {
         <LineChart data={userData} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
-          <YAxis domain={[0, 'auto']} /> {/* Ensures Y-axis starts from 0 */}
+          <YAxis domain={[0, 'auto']} /> 
           <Tooltip />
           <Legend />
           <Line type="monotone" dataKey="total" stroke="#8884d8" name="Total Users" />

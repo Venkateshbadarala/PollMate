@@ -23,7 +23,7 @@ const Ads = ({ ads, onDelete, isAdmin }) => {
   return (
     <div className="flex flex-col items-center justify-center w-full px-4 overflow-hidden">
       {ads.length > 0 ? (
-        <div className="relative p-4 text-center transition-transform transform bg-white rounded-lg shadow-lg hover:scale-102 sm:w-[40rem] md:w-[50rem] w-full lg:w-[70rem] h-auto x-sm:w-[21rem]">
+        <div className="relative p-4 text-center transition-transform transform bg-white rounded-lg shadow-lg hover:scale-102 sm:w-[40rem] md:w-[50rem] w-full lg:w-[70rem] h-auto x-sm:w-[18.8rem]">
           <Image
             src={ads[currentIndex]?.imgSrc}
             alt={ads[currentIndex]?.description}
