@@ -273,7 +273,7 @@ const UserActivityGraph = () => {
   const fetchUserData = async () => {
     const today = new Date();
     const data = [];
-    
+
     try {
       // Fetch total users
       const totalQuery = query(collection(db, 'users'));
@@ -281,16 +281,14 @@ const UserActivityGraph = () => {
       const totalUserCount = totalSnapshot.size;
       setTotalUsers(totalUserCount);
 
-      // Simulating user activity data for the last 10 days
+      // Generate data for the chart (last 10 days)
       for (let i = 0; i < 10; i++) {
         const date = new Date(today);
         date.setDate(today.getDate() - i);
 
-        // Simulate a random number of new users for each day
-        const newUsers = Math.floor(Math.random() * 10); // Example: Random new users each day
         data.push({
           name: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`,
-          total: totalUserCount - (totalUsers - newUsers), // Assuming new users added to total users
+          total: totalUserCount,
         });
       }
 
@@ -304,7 +302,6 @@ const UserActivityGraph = () => {
     // Subscribe to real-time changes in total users
     const unsubscribeTotal = onSnapshot(collection(db, 'users'), (snapshot) => {
       setTotalUsers(snapshot.size);
-      fetchUserData(); // Fetch updated user activity data whenever the total users change
     });
 
     fetchUserData(); // Fetch initial data
@@ -316,7 +313,7 @@ const UserActivityGraph = () => {
 
   return (
     <div className="flex flex-col items-center justify-center w-full lg:w-[70rem] lg:bg-white rounded-lg lg:shadow-lg lg:p-6">
-      <h2 className="flex flex-col gap-8 mb-4 text-2xl font-bold text-gray-800 md:flex-row md:justify-between md:items-center">
+      <h2 className="flex flex-col gap-12 mb-4 text-2xl font-bold text-gray-800 md:flex-row md:justify-between md:items-center">
         <div>User Activity Overview</div>
         <div className="flex gap-4 mt-4 md:mt-0 ">
           <div className="flex items-center gap-2 text-blue-900">
@@ -330,7 +327,7 @@ const UserActivityGraph = () => {
         <LineChart data={userData} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
-          <YAxis domain={[0, 'auto']} />
+          <YAxis domain={[0, 'auto']} /> {/* Ensures Y-axis starts from 0 */}
           <Tooltip />
           <Legend />
           <Line type="monotone" dataKey="total" stroke="#8884d8" name="Total Users" />
