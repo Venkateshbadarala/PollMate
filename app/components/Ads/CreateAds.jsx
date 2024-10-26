@@ -17,7 +17,7 @@ const AdsComponent = ({ user }) => {
   const [ads, setAds] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
   const { userData } = useAuth();
-  const adminEmail = '21pa1a1206@vishnu.edu.in';
+  const adminEmail = 'Kanikesuresh33@gmail.com';
   const isAdmin = userData?.email === adminEmail;
 
   // Fetch ads from Firebase
@@ -66,11 +66,9 @@ const AdsComponent = ({ user }) => {
         url: adLink || '',
       };
 
-      const docRef = await addDoc(collection(db, 'ads'), newAd);
-      const addedAd = { id: docRef.id, ...newAd };
-      setAds([...ads, addedAd]);
-
+      await addDoc(collection(db, 'ads'), newAd);
       toast.success('Ad added successfully!');
+      fetchAds();  // Fetch updated ads list after adding
       resetForm();
     } catch (error) {
       console.error('Error adding ad: ', error);
@@ -89,8 +87,8 @@ const AdsComponent = ({ user }) => {
   const handleAdDelete = async (id) => {
     try {
       await deleteDoc(doc(db, 'ads', id));
-      setAds(ads.filter((ad) => ad.id !== id));
       toast.success('Ad deleted successfully!');
+      fetchAds();  // Fetch updated ads list after deleting
     } catch (error) {
       console.error('Error deleting ad: ', error);
       toast.error('Error deleting ad, please try again.');
@@ -99,7 +97,7 @@ const AdsComponent = ({ user }) => {
 
   return (
     <div className="relative p-4">
-      <div className="absolute p-2 sm:left-[20rem] -top-[5.5rem] ">
+      <div className="absolute p-2 sm:left-[20rem] -top-[5.5rem]  x-sm:left-[10rem] x-sm:-top-12 lg:-top-[5rem]">
         {isAdmin && (
           <button
             className="px-4 w-[6rem] py-2 mt-4 text-white transition duration-200 bg-blue-600 rounded hover:bg-blue-700"
@@ -117,13 +115,15 @@ const AdsComponent = ({ user }) => {
           <form onSubmit={handleAdSubmit} className="mt-4 space-y-4">
             {/* Image Upload Section */}
             <label className="block cursor-pointer">
-              <span className="font-semibold">Image: (max 1MB)</span>
+              <span className="font-semibold">Image: (max 10MB)</span>
               <div className="flex items-center justify-center w-full h-32 mt-2 border-2 border-gray-400 border-dashed rounded-lg">
                 {adImage ? (
                   <Image
                     src={URL.createObjectURL(adImage)}
                     alt="Ad Preview"
                     className="object-cover w-full h-full rounded-lg"
+                    width={400}
+                    height={400}
                   />
                 ) : (
                   <p className="text-gray-500">Click to upload an image</p>
@@ -132,7 +132,7 @@ const AdsComponent = ({ user }) => {
                   type="file"
                   accept="image/*"
                   onChange={handleAdImageChange}
-                  className="hidden" // Hide the default file input
+                  className="hidden"
                   required
                   onClick={(e) => { e.target.value = null }} // Reset the input value
                 />

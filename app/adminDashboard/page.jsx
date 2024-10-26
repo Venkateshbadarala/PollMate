@@ -12,22 +12,22 @@ import AllPoll from '../components/polls/AllPoll';
 
 const Dashboard = () => {
   return (
-    <div className="flex flex-col items-center lg:items-start lg:p-8 mt-10 x-sm:mt-4 sm:justify-center">
-      <h1 className="text-3xl font-semibold text-center lg:text-left sm:text-left lg:ml-4 mb-6">Dashboard</h1>
+    <div className="flex flex-col items-center mt-10 lg:items-start lg:p-8 x-sm:mt-4 sm:justify-center">
+      <h1 className="mb-6 text-3xl font-semibold text-center lg:text-left sm:text-left lg:ml-4 ">Dashboard</h1>
 
       {/* Create Ads Section */}
-      <div className="w-full flex justify-center lg:justify-start mb-6">
+      <div className="flex justify-center w-full mb-6 lg:justify-start">
         <CreateAds />
       </div>
 
       {/* Cards Section */}
-      <div className="w-full flex justify-center items-center mb-8">
+      <div className="flex items-center justify-center w-full mb-8">
         <Cards />
       </div>
 
       {/* Graph Analysis Section */}
       <div className="w-full px-4">
-        <h1 className="text-2xl font-bold border-l-4 border-blue-900 pl-2 mb-4">Graph Analysis</h1>
+        <h1 className="pl-2 mb-4 text-2xl font-bold border-l-4 border-blue-900">Graph Analysis</h1>
         <div className="flex flex-col items-center justify-center gap-3 py-6 lg:ml-10 md:ml-4">
           <Chart />
         </div>
@@ -35,7 +35,7 @@ const Dashboard = () => {
 
       {/* Polls List Section */}
       <div className="w-full px-4 mb-10">
-        <h1 className="text-2xl font-bold border-l-4 border-blue-900 pl-2 mb-4">Polls List</h1>
+        <h1 className="pl-2 mb-4 text-2xl font-bold border-l-4 border-blue-900">Polls List</h1>
         <div className="flex flex-col gap-4 x-sm:pb-16">
           <AllPoll />
         </div>

@@ -81,57 +81,244 @@
 // export default UserActivityGraph;
 
 
+// import React, { useEffect, useState } from 'react';
+// import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+// import { PiUserSwitchThin } from "react-icons/pi";
+// import { HiUserGroup } from "react-icons/hi";
+
+// // Generate fake user data
+// const generateFakeUserData = () => {
+//   const today = new Date();
+//   const data = [];
+
+//   for (let i = 0; i < 10; i++) {
+//     const date = new Date(today);
+//     date.setDate(today.getDate() - i);
+
+//     const activeUsers = Math.floor(Math.random() * 100);
+//     const totalUsers = Math.floor(Math.random() * 150 + activeUsers);
+
+//     data.push({
+//       name: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`,
+//       active: activeUsers,
+//       total: totalUsers,
+//     });
+//   }
+
+//   return data.reverse();
+// };
+
+// const UserActivityGraph = () => {
+//   const [userData, setUserData] = useState([]);
+//   const [activeUsers, setActiveUsers] = useState(0);
+//   const [totalUsers, setTotalUsers] = useState(0);
+
+//   useEffect(() => {
+//     const fakeUserData = generateFakeUserData();
+//     setUserData(fakeUserData);
+
+//     const activeUserCount = fakeUserData.reduce((sum, item) => sum + item.active, 0);
+//     const totalUserCount = fakeUserData.reduce((sum, item) => sum + item.total, 0);
+//     setActiveUsers(activeUserCount);
+//     setTotalUsers(totalUserCount);
+//   }, []);
+
+//   return (
+//     <div className="flex flex-col items-center justify-center w-full lg:w-[70rem] lg:bg-white rounded-lg lg:shadow-lg lg:p-6">
+//       <h2 className="flex flex-col gap-12 mb-4 text-2xl font-bold text-gray-800 md:flex-row md:justify-between md:items-center">
+//         <div className=''>User Activity Overview</div>
+//         <div className="flex gap-4 mt-4 md:mt-0 ">
+//           <div className="flex items-center gap-2 text-blue-900">
+//             <PiUserSwitchThin size={24} />
+//             <p className="font-semibold">{activeUsers}</p>
+//           </div>
+//           <div className="flex items-center gap-2 text-blue-900">
+//             <HiUserGroup size={24} />
+//             <p className="font-semibold">{totalUsers}</p>
+//           </div>
+//         </div>
+//       </h2>
+
+//       <ResponsiveContainer width="100%" height={300}>
+//         <LineChart data={userData} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+//           <CartesianGrid strokeDasharray="3 3" />
+//           <XAxis dataKey="name" />
+//           <YAxis />
+//           <Tooltip />
+//           <Legend />
+//           <Line type="monotone" dataKey="active" stroke="#82ca9d" activeDot={{ r: 8 }} name="Active Users" />
+//           <Line type="monotone" dataKey="total" stroke="#8884d8" name="Total Users" />
+//         </LineChart>
+//       </ResponsiveContainer>
+//     </div>
+//   );
+// };
+
+// export default UserActivityGraph;
+
+// import React, { useEffect, useState } from 'react';
+// import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+// import { PiUserSwitchThin } from "react-icons/pi";
+// import { HiUserGroup } from "react-icons/hi";
+// import { db } from '../../Firebase/firebase-config';
+// import { collection, query, where, onSnapshot, getDocs } from 'firebase/firestore';
+
+// const UserActivityGraph = () => {
+//   const [userData, setUserData] = useState([]);
+//   const [activeUsers, setActiveUsers] = useState(0);
+//   const [totalUsers, setTotalUsers] = useState(0);
+
+//   // Fetch active and total users from Firestore
+//   const fetchUserData = async () => {
+//     const today = new Date();
+//     const data = [];
+
+//     try {
+//       // Fetch total users
+//       const totalQuery = query(collection(db, 'users'));
+//       const totalSnapshot = await getDocs(totalQuery);
+//       const totalUserCount = totalSnapshot.size;
+
+//       // Fetch active users
+//       const activeQuery = query(collection(db, 'users'), where('isActive', '==', true));
+//       const activeSnapshot = await getDocs(activeQuery);
+//       const activeUserCount = activeSnapshot.size;
+
+//       setTotalUsers(totalUserCount);
+//       setActiveUsers(activeUserCount);
+
+//       // Generate data for the chart (last 10 days)
+//       for (let i = 0; i < 10; i++) {
+//         const date = new Date(today);
+//         date.setDate(today.getDate() - i);
+
+//         data.push({
+//           name: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`,
+//           active: activeUserCount, // Replace with historical data if available
+//           total: totalUserCount,   // Replace with historical data if available
+//         });
+//       }
+
+//       setUserData(data.reverse());
+//     } catch (error) {
+//       console.error('Error fetching user data: ', error);
+//     }
+//   };
+
+//   useEffect(() => {
+//     // Subscribe to real-time changes in total and active users
+//     const unsubscribeTotal = onSnapshot(collection(db, 'users'), (snapshot) => {
+//       setTotalUsers(snapshot.size);
+//     });
+
+//     const unsubscribeActive = onSnapshot(
+//       query(collection(db, 'users'), where('isActive', '==', true)),
+//       (snapshot) => {
+//         setActiveUsers(snapshot.size);
+//       }
+//     );
+
+//     fetchUserData(); // Fetch initial data
+
+//     return () => {
+//       unsubscribeTotal();
+//       unsubscribeActive();
+//     };
+//   }, []);
+
+//   return (
+//     <div className="flex flex-col items-center justify-center w-full lg:w-[70rem] lg:bg-white rounded-lg lg:shadow-lg lg:p-6">
+//       <h2 className="flex flex-col gap-12 mb-4 text-2xl font-bold text-gray-800 md:flex-row md:justify-between md:items-center">
+//         <div>User Activity Overview</div>
+//         <div className="flex gap-4 mt-4 md:mt-0 ">
+//           <div className="flex items-center gap-2 text-blue-900">
+//             <PiUserSwitchThin size={24} />
+//             <p className="font-semibold">{activeUsers}</p>
+//           </div>
+//           <div className="flex items-center gap-2 text-blue-900">
+//             <HiUserGroup size={24} />
+//             <p className="font-semibold">{totalUsers}</p>
+//           </div>
+//         </div>
+//       </h2>
+
+//       <ResponsiveContainer width="100%" height={300}>
+//         <LineChart data={userData} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+//           <CartesianGrid strokeDasharray="3 3" />
+//           <XAxis dataKey="name" />
+//           <YAxis />
+//           <Tooltip />
+//           <Legend />
+//           <Line type="monotone" dataKey="active" stroke="#82ca9d" activeDot={{ r: 8 }} name="Active Users" />
+//           <Line type="monotone" dataKey="total" stroke="#8884d8" name="Total Users" />
+//         </LineChart>
+//       </ResponsiveContainer>
+//     </div>
+//   );
+// };
+
+// export default UserActivityGraph;
+
+
 import React, { useEffect, useState } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { PiUserSwitchThin } from "react-icons/pi";
 import { HiUserGroup } from "react-icons/hi";
-
-// Generate fake user data
-const generateFakeUserData = () => {
-  const today = new Date();
-  const data = [];
-
-  for (let i = 0; i < 10; i++) {
-    const date = new Date(today);
-    date.setDate(today.getDate() - i);
-
-    const activeUsers = Math.floor(Math.random() * 100);
-    const totalUsers = Math.floor(Math.random() * 150 + activeUsers);
-
-    data.push({
-      name: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`,
-      active: activeUsers,
-      total: totalUsers,
-    });
-  }
-
-  return data.reverse();
-};
+import { db } from '../../Firebase/firebase-config';
+import { collection, query, onSnapshot, getDocs } from 'firebase/firestore';
 
 const UserActivityGraph = () => {
   const [userData, setUserData] = useState([]);
-  const [activeUsers, setActiveUsers] = useState(0);
   const [totalUsers, setTotalUsers] = useState(0);
 
-  useEffect(() => {
-    const fakeUserData = generateFakeUserData();
-    setUserData(fakeUserData);
+  const fetchUserData = async () => {
+    const today = new Date();
+    const data = [];
+    
+    try {
+      // Fetch total users
+      const totalQuery = query(collection(db, 'users'));
+      const totalSnapshot = await getDocs(totalQuery);
+      const totalUserCount = totalSnapshot.size;
+      setTotalUsers(totalUserCount);
 
-    const activeUserCount = fakeUserData.reduce((sum, item) => sum + item.active, 0);
-    const totalUserCount = fakeUserData.reduce((sum, item) => sum + item.total, 0);
-    setActiveUsers(activeUserCount);
-    setTotalUsers(totalUserCount);
+      // Simulating user activity data for the last 10 days
+      for (let i = 0; i < 10; i++) {
+        const date = new Date(today);
+        date.setDate(today.getDate() - i);
+
+        // Simulate a random number of new users for each day
+        const newUsers = Math.floor(Math.random() * 10); // Example: Random new users each day
+        data.push({
+          name: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`,
+          total: totalUserCount - (totalUsers - newUsers), // Assuming new users added to total users
+        });
+      }
+
+      setUserData(data.reverse());
+    } catch (error) {
+      console.error('Error fetching user data: ', error);
+    }
+  };
+
+  useEffect(() => {
+    // Subscribe to real-time changes in total users
+    const unsubscribeTotal = onSnapshot(collection(db, 'users'), (snapshot) => {
+      setTotalUsers(snapshot.size);
+      fetchUserData(); // Fetch updated user activity data whenever the total users change
+    });
+
+    fetchUserData(); // Fetch initial data
+
+    return () => {
+      unsubscribeTotal();
+    };
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center w-full lg:w-[60rem] lg:bg-white rounded-lg lg:shadow-lg lg:p-6">
-      <h2 className="flex flex-col md:flex-row md:justify-between md:items-center text-2xl font-bold text-gray-800 mb-4">
-        <div className=''>User Activity Overview</div>
+    <div className="flex flex-col items-center justify-center w-full lg:w-[70rem] lg:bg-white rounded-lg lg:shadow-lg lg:p-6">
+      <h2 className="flex flex-col gap-8 mb-4 text-2xl font-bold text-gray-800 md:flex-row md:justify-between md:items-center">
+        <div>User Activity Overview</div>
         <div className="flex gap-4 mt-4 md:mt-0 ">
-          <div className="flex items-center gap-2 text-blue-900">
-            <PiUserSwitchThin size={24} />
-            <p className="font-semibold">{activeUsers}</p>
-          </div>
           <div className="flex items-center gap-2 text-blue-900">
             <HiUserGroup size={24} />
             <p className="font-semibold">{totalUsers}</p>
@@ -143,10 +330,9 @@ const UserActivityGraph = () => {
         <LineChart data={userData} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
-          <YAxis />
+          <YAxis domain={[0, 'auto']} />
           <Tooltip />
           <Legend />
-          <Line type="monotone" dataKey="active" stroke="#82ca9d" activeDot={{ r: 8 }} name="Active Users" />
           <Line type="monotone" dataKey="total" stroke="#8884d8" name="Total Users" />
         </LineChart>
       </ResponsiveContainer>
@@ -155,4 +341,3 @@ const UserActivityGraph = () => {
 };
 
 export default UserActivityGraph;
-
