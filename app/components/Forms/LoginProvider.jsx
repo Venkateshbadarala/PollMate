@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import { auth, db } from '../../Firebase/firebase-config'; // Ensure db (Firestore) is configured
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation'; // Import useSearchParams
 import { doc, getDoc, setDoc } from 'firebase/firestore'; // Import Firestore methods
 import GoogleIcon from '../../Assets/images/google.png';
 
@@ -16,6 +16,8 @@ const providers = [
 
 const LoginProvider = () => {
     const router = useRouter();
+    const searchParams = useSearchParams(); // Fetch URL parameters
+    const pollId = searchParams.get("pollId"); // Get pollId from the query parameters
 
     const checkIfNewUser = async (uid) => {
         const userDoc = doc(db, "users", uid);
@@ -48,19 +50,20 @@ const LoginProvider = () => {
                 const user = result.user;
                 console.log("User data after sign-in:", user);
 
-                const idToken = await user.getIdToken();
-                console.log("User ID token:", idToken);
-
                 // Check if user exists in Firestore
                 const userRef = await checkIfNewUser(user.uid);
 
                 if (userRef.exists()) {
-                    const userData = userRef.data();
-                    console.log("Existing user data:", userData);
-                    router.push('/adminDashboard');
+                    console.log("User exists, redirecting...");
                 } else {
                     await createNewUser(user);
-                    console.log("User is new. Created new document in Firestore.");
+                    console.log("New user created, redirecting...");
+                }
+
+                
+                if (pollId) {
+                    router.push(`/adminDashboard/${pollId}`);
+                } else {
                     router.push('/adminDashboard');
                 }
 

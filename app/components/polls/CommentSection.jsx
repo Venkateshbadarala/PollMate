@@ -179,7 +179,7 @@ const CommentSection = ({ pollId }) => {
             >
               <div className="flex items-center mb-2">
                 <Image
-                  src={user.image || "/default-avatar.png"}
+                  src={user.image || "https://placehold.co/300x300.png"}
                   alt="User Avatar"
                   className="w-8 h-8 mr-2 rounded-full"
                   width={32}
@@ -217,7 +217,7 @@ const CommentSection = ({ pollId }) => {
                       <div key={idx} className="p-2 mb-2 rounded-lg shadow-sm bg-gray-50">
                         <div className="flex items-center mb-1">
                           <Image
-                            src={replyUser.image || "/default-avatar.png"}
+                            src={replyUser.image || "https://placehold.co/300x300.png"}
                             alt="User Avatar"
                             className="w-6 h-6 mr-2 rounded-full"
                             width={24}

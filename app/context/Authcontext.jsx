@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { createContext, useState, useEffect, useContext, useCallback } from "react";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../Firebase/firebase-config";
@@ -6,6 +6,7 @@ import { getFirestore, doc, getDoc, updateDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 
 const AuthContext = createContext(null);
+const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -32,9 +33,21 @@ export const AuthProvider = ({ children }) => {
       await updateDoc(userDocRef, {
         status: status,
         lastActive: new Date(),
+        loginTimestamp: new Date().getTime(),
       });
     } catch (error) {
       console.error("Error updating user status:", error);
+    }
+  }, [db]);
+
+  const checkAutoLogout = useCallback(async (userId) => {
+    const userDocRef = doc(db, "users", userId);
+    const docSnap = await getDoc(userDocRef);
+    if (docSnap.exists()) {
+      const { loginTimestamp } = docSnap.data();
+      if (new Date().getTime() - loginTimestamp > THIRTY_DAYS_MS) {
+        await logout();
+      }
     }
   }, [db]);
 
@@ -44,14 +57,15 @@ export const AuthProvider = ({ children }) => {
       if (currentUser) {
         setUser(currentUser);
         await fetchUserData(currentUser.uid);
+        await checkAutoLogout(currentUser.uid);
         await updateUserStatus(currentUser.uid, "online");
       } else {
-        router.push("/login"); // Redirect to login if not authenticated
+        router.push("/login");
       }
       setLoading(false);
     });
     return () => unsubscribe();
-  }, [fetchUserData, updateUserStatus, router]);
+  }, [fetchUserData, checkAutoLogout, updateUserStatus, router]);
 
   const logout = async () => {
     const confirmation = window.confirm("Are you sure you want to log out?");
