@@ -11,7 +11,7 @@ const Navbar = ({ menuItems = [] }) => {
       <div className="flex items-center gap-4">
         <h1 className='sm:text-[2rem] text-white asteriod x-sm:text-[1.5rem]'>PollMate</h1>
       </div>
-      <div className="flex gap-10 mr-[10%] font-bold x-sm:gap-4">
+      <div className="flex gap-10 mr-[10%] font-bold x-sm:gap-4 ">
         {menuItems.map((menuItem, index) => (
           <Link
             href={menuItem.route}
